@@ -2,7 +2,7 @@
 
 ## Table of Contents
     [Description](#-descriptions)
-    [Instructions](#-instructions)
+    [Instructions](https://github.com/l0latgithub/disaster_messages/blob/master/README.md#descriptions)
     [Acknowledgement](#-acknowledgement)
 
 ### Descriptions
