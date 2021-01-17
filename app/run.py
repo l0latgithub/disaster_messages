@@ -22,6 +22,11 @@ import random
 app = Flask(__name__)
 
 def tokenize(text):
+    
+    """
+    Use word_tokenize and WordNetLemmatizer to prepare word tokens
+    """
+    
     tokens = word_tokenize(text)
     lemmatizer = WordNetLemmatizer()
 
@@ -67,10 +72,10 @@ model = joblib.load("../models/classifier.pkl")
 def index():
     
     # extract data needed for visuals
-    # TODO: Below is an example - modify to extract data for your own visuals
     genre_counts = df.groupby('genre').count()['message']
     genre_names = list(genre_counts.index)
     
+    # Prepare word cloud, including first 100 words, weights and color etc.
     allwords = " ".join( df['message'] )
     wordcloud = WordCloud().generate(allwords)
     alltexts = list( wordcloud.words_.keys() )[:100]
@@ -78,8 +83,8 @@ def index():
     num_words = 100
     colors = [plotly.colors.DEFAULT_PLOTLY_COLORS[random.randrange(1, 10)] for i in range(num_words)]
     weights = [int(num*60) for num in ( list( wordcloud.words_.values() )[:100] ) ]
+    
     # create visuals
-    # TODO: Below is an example - modify to create your own visuals
     graphs = [
         {
             'data': [
