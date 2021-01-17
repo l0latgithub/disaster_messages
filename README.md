@@ -11,3 +11,5 @@
 2. Run the following command in the app's directory to run your web app.
     `python run.py`
 ### Acknowledgement
+1. Udacity for providing an amazing Data Science Nanodegree Program
+2. Figure Eight for providing the relevant dataset to train the model
