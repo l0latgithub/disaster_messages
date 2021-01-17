@@ -1,10 +1,9 @@
 # Disaster Response Pipeline Project
 
 ## Table of Contents
-    1. [Description](#description)
-    [Installation](#description)
-    2. [Instructions](#instructions)
-    3. [Acknowledgement](#acknowledgement)
+    1. [Description](###description)
+    2. [Instructions](###instructions)
+    3. [Acknowledgement](###acknowledgement)
 
 ### Descriptions <a name="description"></a>
 This project aims to build a Natural Language Processing (NLP) web app to categorize messages. The project has three
