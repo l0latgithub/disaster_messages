@@ -1,0 +1,12 @@
+pandas
+numpy
+scikit-learn
+plotly
+nltk
+flask
+sqlalchemy
+json
+pickle
+nltk
+wordcloud
+sqlite3
