@@ -1,5 +1,15 @@
 # Disaster Response Pipeline Project
+
+## Table of Contents
+    1. #Description
+    2. 
+
 ### Descriptions
+This project aims to build a Natural Language Processing (NLP) web app to categorize messages. The project has three
+major components
+    1. Build sklearn ETYL pipeline to process data, clean, and save data to a SQLite database.
+    2. Develop a NLP processing model to classify the text messages.
+    3. Deploy the model as a web app to show the results.
 ### Instructions:
 1. Run the following commands in the project's root directory to set up your database and model.
 
@@ -8,7 +18,7 @@
     - To run ML pipeline that trains classifier and saves
         `python models/train_classifier.py data/DisasterResponse.db models/classifier.pkl`
 
-2. Run the following command in the app's directory to run your web app.
+2. Run the following command in the app's directory to run the web app.
     `python run.py`
 ### Acknowledgement
 1. [Udacity](https://www.udacity.com/) for providing an amazing Data Science Nanodegree Program
