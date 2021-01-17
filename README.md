@@ -2,6 +2,7 @@
 
 ## Table of Contents
     1. [Description](#description)
+    [Installation](#description)
     2. [Instructions](#instructions)
     3. [Acknowledgement](#acknowledgement)
 
