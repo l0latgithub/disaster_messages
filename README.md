@@ -1,8 +1,9 @@
 # Disaster Response Pipeline Project
 
 ## Table of Contents
-    1. https://github.com/l0latgithub/disaster_messages/edit/master/README.md#Description
-    2. 
+    1. [Description](#Description)
+    2. [Instructions](#Instructions)
+    3. [Acknowledgement](#Acknowledgement)
 
 ### Descriptions
 This project aims to build a Natural Language Processing (NLP) web app to categorize messages. The project has three
