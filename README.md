@@ -1,5 +1,5 @@
 # Disaster Response Pipeline Project
-
+### Descriptions
 ### Instructions:
 1. Run the following commands in the project's root directory to set up your database and model.
 
@@ -10,3 +10,4 @@
 
 2. Run the following command in the app's directory to run your web app.
     `python run.py`
+### Acknowledgement
