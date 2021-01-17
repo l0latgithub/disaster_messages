@@ -1,7 +1,7 @@
 # Disaster Response Pipeline Project
 
 ## Table of Contents
-    1. [Description](https://github.com/l0latgithub/disaster_messages/edit/master/README.md#Description)
+    1. https://github.com/l0latgithub/disaster_messages/edit/master/README.md#Description
     2. 
 
 ### Descriptions
