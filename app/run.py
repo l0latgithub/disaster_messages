@@ -1,16 +1,21 @@
+from app import app
 import json
 import plotly
 import pandas as pd
 
+
 import nltk
-nltk.download(['punkt', 'wordnet', 'averaged_perceptron_tagger'])
+nltk.download(['punkt', 'wordnet', 'averaged_perceptron_tagger','stopwords'])
+from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import word_tokenize
 
 from flask import Flask
 from flask import render_template, request, jsonify
 from plotly.graph_objs import Bar
-from sklearn.externals import joblib
+# from sklearn.externals.joblib import joblib
+# import sklearn.external.joblib as extjoblib
+import joblib
 from sqlalchemy import create_engine
 from sklearn.base import BaseEstimator, TransformerMixin
 from wordcloud import WordCloud
@@ -19,46 +24,22 @@ from plotly.graph_objs import Scatter
 from plotly.offline import plot
 import random
 
-app = Flask(__name__)
+from util import Tokenizer,StartingVerbExtractor
 
-def tokenize(text):
-    tokens = word_tokenize(text)
-    lemmatizer = WordNetLemmatizer()
+# from util import tokenize
+# Need the following line to run local?
+# app = Flask(__name__)
 
-    clean_tokens = []
-    for tok in tokens:
-        clean_tok = lemmatizer.lemmatize(tok).lower().strip()
-        clean_tokens.append(clean_tok)
+# import os.path
+# for filedir,_, filename in os.walk('.'):
+#     print (filedir, filename)
 
-    return clean_tokens
-
-class StartingVerbExtractor(BaseEstimator, TransformerMixin):
-    
-    """
-    A customerized transformer to detect leading verb for the messages
-    """
-    def starting_verb(self, text):
-        sentence_list = nltk.sent_tokenize(text)
-        for sentence in sentence_list:
-            pos_tags = nltk.pos_tag(tokenize(sentence))
-            first_word, first_tag = pos_tags[0]
-            if first_tag in ['VB', 'VBP'] or first_word == 'RT':
-                return 1
-        return 0
-
-    def fit(self, x, y=None):
-        return self
-
-    def transform(self, X):
-        X_tagged = pd.Series(X).apply(self.starting_verb)
-        return pd.DataFrame(X_tagged)
-    
 # load data
-engine = create_engine('sqlite:///../data/DisasterResponse.db')
+engine = create_engine('sqlite:///./data/DisasterResponse.db')
 df = pd.read_sql_table('rawdata', engine)
 
-# load model
-model = joblib.load("../models/classifier.pkl")
+# # load model
+model = joblib.load("./models/classifier.pkl")
 
 
 # index webpage displays cool visuals and receives user input text for model
@@ -73,11 +54,11 @@ def index():
     
     allwords = " ".join( df['message'] )
     wordcloud = WordCloud().generate(allwords)
-    alltexts = list( wordcloud.words_.keys() )[:100]
-    num_words = len(wordcloud.words_.keys())
-    num_words = 100
+    alltexts = list( wordcloud.words_.keys() )[:30]
+#     num_words = len(wordcloud.words_.keys())
+    num_words = 30
     colors = [plotly.colors.DEFAULT_PLOTLY_COLORS[random.randrange(1, 10)] for i in range(num_words)]
-    weights = [int(num*60) for num in ( list( wordcloud.words_.values() )[:100] ) ]
+    weights = [int(num*60) for num in ( list( wordcloud.words_.values() )[:30] ) ]
     # create visuals
     # TODO: Below is an example - modify to create your own visuals
     graphs = [
@@ -97,7 +78,7 @@ def index():
                 'xaxis': {
                     'title': "Genre"
                 },
-                'width': '400',
+                'width': '500',
                 'height': '600',
                 'automargin': 'True',
                 'titlefont': {'size': '30'}
@@ -156,7 +137,8 @@ def go():
 
 
 def main():
-    app.run(host='0.0.0.0', port=3001, debug=True)
+    app.run(port=3001, debug=True)
+#     app.run(host='0.0.0.0', port=3001, debug=True)
 
 
 if __name__ == '__main__':

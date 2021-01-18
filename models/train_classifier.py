@@ -6,7 +6,8 @@ from sqlalchemy import create_engine
 import re
 
 import nltk
-nltk.download(['punkt', 'wordnet', 'averaged_perceptron_tagger'])
+nltk.download(['punkt', 'wordnet', 'averaged_perceptron_tagger','stopwords'])
+from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 
@@ -27,6 +28,8 @@ from sklearn.metrics import average_precision_score
 from sklearn.metrics import accuracy_score
 from statistics import mean
 
+from util import Tokenizer, StartingVerbExtractor
+
 def load_data(database_filepath):
     
     # Load data from sqlite database
@@ -42,47 +45,89 @@ def load_data(database_filepath):
     return X, Y, Y.columns
 
 
-def tokenize(text):
-    import re
-    # Use regex to find all urls and replace them to be a constant string
-    url_regex = 'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
-    detected_urls = re.findall(url_regex, text)
+# class Tokenizer(BaseEstimator, TransformerMixin):
+#     def __init__(self):
+#         pass
+
+#     def fit(self, X, y=None):
+#         return self
+
     
-    for url in detected_urls:
-        text = text.replace(url, "urlplaceholder")
+#     def tokenize(self, X):
+#             import re
+#             # Use regex to find all urls and replace them to be a constant string
+#             url_regex = 'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
+#             text = X
+#             detected_urls = re.findall(url_regex, text)
 
-    # Use NLTK word tokenizer and Lemmatizer to tokenize and lemmatize the messges
-    tokens = word_tokenize(text)
-    lemmatizer = WordNetLemmatizer()
+#             for url in detected_urls:
+#                 text = text.replace(url, "urlplaceholder")
 
-    # Tokens are normalized to lower case and remove leading/trailing spaces
-    clean_tokens = []
-    for tok in tokens:
-        clean_tok = lemmatizer.lemmatize(tok).lower().strip()
-        clean_tokens.append(clean_tok)
+#             # Use NLTK word tokenizer and Lemmatizer to tokenize and lemmatize the messges
+#             tokens = word_tokenize(text)
+#             lemmatizer = WordNetLemmatizer()
 
-    return clean_tokens
+#             # Tokens are normalized to lower case and remove leading/trailing spaces
+#             clean_tokens = []
+#             for tok in tokens:
+#                 clean_tok = lemmatizer.lemmatize(tok).lower().strip()
+#                 clean_tokens.append(clean_tok)
+            
+#             # remove stopwords
+#             STOPWORDS = list(set(stopwords.words('english')))
+#             clean_tokens = [token for token in clean_tokens if token not in STOPWORDS]
 
-class StartingVerbExtractor(BaseEstimator, TransformerMixin):
+#             return clean_tokens
+        
+#     def transform(self, X):
+#         def tokenize(text):
+#             import re
+#             # Use regex to find all urls and replace them to be a constant string
+#             url_regex = 'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
+#             detected_urls = re.findall(url_regex, text)
+
+#             for url in detected_urls:
+#                 text = text.replace(url, "urlplaceholder")
+
+#             # Use NLTK word tokenizer and Lemmatizer to tokenize and lemmatize the messges
+#             tokens = word_tokenize(text)
+#             lemmatizer = WordNetLemmatizer()
+
+#             # Tokens are normalized to lower case and remove leading/trailing spaces
+#             clean_tokens = []
+#             for tok in tokens:
+#                 clean_tok = lemmatizer.lemmatize(tok).lower().strip()
+#                 clean_tokens.append(clean_tok)
+            
+#             # remove stopwords
+#             STOPWORDS = list(set(stopwords.words('english')))
+#             clean_tokens = [token for token in clean_tokens if token not in STOPWORDS]
+
+#             return " ".join(clean_tokens)
+#         return pd.Series(X).apply(tokenize).values
+
+# class StartingVerbExtractor(BaseEstimator, TransformerMixin):
     
-    """
-    A customerized transformer to detect leading verb for the messages
-    """
-    def starting_verb(self, text):
-        sentence_list = nltk.sent_tokenize(text)
-        for sentence in sentence_list:
-            pos_tags = nltk.pos_tag(tokenize(sentence))
-            first_word, first_tag = pos_tags[0]
-            if first_tag in ['VB', 'VBP'] or first_word == 'RT':
-                return 1
-        return 0
+#     """
+#     A customerized transformer to detect leading verb for the messages
+#     """
+#     def starting_verb(self, text):
+#         sentence_list = nltk.sent_tokenize(text)
+#         for sentence in sentence_list:
+# #             pos_tags = nltk.pos_tag(tokenize(sentence))
+#             pos_tags = nltk.pos_tag(Tokenizer().tokenize(sentence))
+#             if pos_tags:
+#                 first_word, first_tag = pos_tags[0]
+#                 if first_tag in ['VB', 'VBP'] or first_word == 'RT':
+#                     return 1
+#         return 0
 
-    def fit(self, x, y=None):
-        return self
+#     def fit(self, x, y=None):
+#         return self
 
-    def transform(self, X):
-        X_tagged = pd.Series(X).apply(self.starting_verb)
-        return pd.DataFrame(X_tagged)
+#     def transform(self, X):
+#         X_tagged = pd.Series(X).apply(self.starting_verb)
+#         return pd.DataFrame(X_tagged)
 
 def build_model():
     
@@ -99,7 +144,8 @@ def build_model():
         ('features', FeatureUnion([
 
             ('text_pipeline', Pipeline([
-                ('vect', CountVectorizer(tokenizer=tokenize)),
+                ('token', Tokenizer()),
+                ('vect', CountVectorizer()),
                 ('tfidf', TfidfTransformer())
             ])),
 
@@ -217,3 +263,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+    
