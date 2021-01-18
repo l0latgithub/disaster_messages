@@ -2,15 +2,20 @@
 
 ## Table of Content
   1. [Descriptions](#descriptions)
+  2. [Requirements](#requirements)
+  3. [Instructions](#instructions)
+  4. [Results](#results)
+  5. [Deployment](#deployment)
+  5. [Acknowledgement](#acknowledgement)
 
-###Descriptions
+### Descriptions
 
-###Requirements
+### Requirements
 
-###Instructions
+### Instructions
 
-###Results
+### Results
 
-###Deployment
+### Deployment
 
-###Acknowledgement
+### Acknowledgement
