@@ -10,6 +10,33 @@
 
 ### Descriptions
   A web app was built with Natural Language Process(NLP) model with pipeline to classify disaster messages or tweets. Emergency response team could use this tool to determine how to respond during an disaster event.
+  
+      │   LICENSE.md                      # MIT license
+      │   message.py                      # import the app
+      │   nltk.txt                        # how to use NLTK on Heroku https://devcenter.heroku.com/articles/python-nltk
+      │   Procfile                        # Heroku apps include a Procfile that specifies the commands that are executed by the app on startup
+      │   README.md
+      │   requirements.txt                # All modules used in this app
+      │   util.py                         # library used in this app
+      │
+      ├───app
+      │   │   run.py                      # Python program to render picture and return classification results
+      │   │   __init__.py                 # python program to return the app object
+      │   │
+      │   └───templates
+      │           go.html                 # classification result html template
+      │           master.html             # web app master html
+      │
+      ├───data
+      │       DisasterResponse.db         # SQLite database of processed message and label data
+      │       disaster_categories.csv     # Raw label data
+      │       disaster_messages.csv       # Raw message data
+      │       process_data.py             # Data extraction, transform, and load (ETL) python program
+      │
+      └───models
+              classifier.pkl              # NLP classification model saved
+              train_classifier.py         # NLP model training program
+              util.py                     # library used in this app
 
 ### Requirements
   
