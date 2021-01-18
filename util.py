@@ -3,7 +3,6 @@ from sklearn.base import BaseEstimator, TransformerMixin
 import pandas as pd
 import re
 import nltk
-# nltk.download(['punkt', 'wordnet', 'averaged_perceptron_tagger','stopwords'])
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
@@ -77,7 +76,6 @@ class StartingVerbExtractor(BaseEstimator, TransformerMixin):
     def starting_verb(self, text):
         sentence_list = nltk.sent_tokenize(text)
         for sentence in sentence_list:
-#             pos_tags = nltk.pos_tag(tokenize(sentence))
             pos_tags = nltk.pos_tag(Tokenizer().tokenize(sentence))
             if pos_tags:
                 first_word, first_tag = pos_tags[0]
