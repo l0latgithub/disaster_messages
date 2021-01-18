@@ -13,7 +13,7 @@
   
       │   LICENSE.md                      # MIT license
       │   message.py                      # import the app
-      │   nltk.txt                        [how to use NLTK on Heroku](https://devcenter.heroku.com/articles/python-nltk)
+      │   nltk.txt                        # how to use NLTK on Heroku (https://devcenter.heroku.com/articles/python-nltk)
       │   Procfile                        # Heroku apps include a Procfile that specifies the commands that are executed by the app on startup
       │   README.md
       │   requirements.txt                # All modules used in this app
