@@ -47,6 +47,10 @@ model = joblib.load("./models/classifier.pkl")
 @app.route('/index')
 def index():
     
+    """
+    Web app index page. It renders two pictures about the data. One bar chart and word cloud.
+    """
+    
     # extract data needed for visuals
     # TODO: Below is an example - modify to extract data for your own visuals
     genre_counts = df.groupby('genre').count()['message']
@@ -122,6 +126,9 @@ def index():
 # web page that handles user query and displays model results
 @app.route('/go')
 def go():
+    """
+    Return message classification results
+    """
     # save user input in query
     query = request.args.get('query', '') 
 
