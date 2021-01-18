@@ -6,19 +6,34 @@ from sqlalchemy import create_engine
 
 def load_data(messages_filepath, categories_filepath):
     
+    """
+    Load raw data and merge raw data into singel data frame for data cleaning etc.
+    
+    Arguments:
+            messages_filepath:          Raw messages datapath 
+            categories_filepath:        Raw labels datapath
+    Returns:
+            df: Merged data frame
+    """
+    
+    # Load the data
     messages = pd.read_csv(messages_filepath)
-    # Messages file has 68 duplicates row
-    messages.drop_duplicates(inplace=True)
-    
     categories = pd.read_csv(categories_filepath)
-    # categories file has 32 duplicates row
-    categories.drop_duplicates(inplace=True)
     
-    # In summary messages have 26180 unique rows and categories have 26216 uniq rows
-    # Due to the inconsistence of inputs, merge will be conducted after splitting categories
+    # merge datasets
+    df = messages.merge(new_categories, on='id').reset_index(drop=True)
+    
+    return df
+    
+def clean_data(df):
+    """
+    Data cleaning function.
+    1. Remove child_alone label since it only has one value
+    2. Drop duplicates
+    """
     
     # create a dataframe of the 36 individual category columns
-    categories_split = categories.categories.str.split(pat=";",n=-1, expand=True)
+    categories_split = df.categories.str.split(pat=";",n=-1, expand=True)
     
     # Use first row to get the column names
     row = categories_split.iloc[0]
@@ -26,32 +41,46 @@ def load_data(messages_filepath, categories_filepath):
     categories_split.columns = category_colnames
 
     # Merge splitted categoreis with original categries dataframe to get id back
-    new_categories = pd.concat([categories, categories_split], axis=1)
-    new_categories.drop(labels='categories', axis=1, inplace=True)
+    df = pd.concat([df, categories_split], axis=1)
+    df.drop(labels='categories', axis=1, inplace=True)
     
     # set each value to be the last character of the string
     for column in category_colnames:
-        new_categories[column] = new_categories[column].apply(lambda x:x.split('-')[-1]).astype(int)
-    
-    # merge datasets
-    df = messages.merge(new_categories, on='id').reset_index(drop=True)
+        df[column] = df[column].apply(lambda x:x.split('-')[-1]).astype(int)
     
     # child_alone only have 1 value and it is droped here
     df.drop(labels=['child_alone'], axis=1, inplace=True)
-    return df
     
-def clean_data(df):
-    # Duplicates removeal was conducted in load_data part
-    # this function does not have any real function
+    # Drop duplicates and keep the first appearance.
+    df.drop_duplicates(keep='first', inplace=True)
+    
     return df
 
 
 def save_data(df, database_filename):
+
+    """
+    Save the data to SQLite database for NLP model and further processing
+    Arguments:
+            df:                       Merged data frame
+            database_filename:        database file path
+    """
+    
     engine = create_engine('sqlite:///{}'.format(database_filename))
     df.to_sql('rawdata', engine, if_exists='replace',index=False)
 
 
 def main():
+    
+    """
+    Data Processing function
+    
+    This function:
+        1) Extract rawdata from .csv files
+        2) Data cleaning and pre-processing
+        3) Data saved to SQLite database
+    """
+    
     if len(sys.argv) == 4:
 
         messages_filepath, categories_filepath, database_filepath = sys.argv[1:]
