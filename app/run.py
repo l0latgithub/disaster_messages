@@ -24,20 +24,7 @@ from plotly.graph_objs import Scatter
 from plotly.offline import plot
 import random
 
-<<<<<<< HEAD
 from util import Tokenizer,StartingVerbExtractor
-=======
-app = Flask(__name__)
-
-def tokenize(text):
-    
-    """
-    Use word_tokenize and WordNetLemmatizer to prepare word tokens
-    """
-    
-    tokens = word_tokenize(text)
-    lemmatizer = WordNetLemmatizer()
->>>>>>> 50e9a448263965e6090f75a55717822bf4b308cd
 
 # from util import tokenize
 # Need the following line to run local?
@@ -61,23 +48,20 @@ model = joblib.load("./models/classifier.pkl")
 def index():
     
     # extract data needed for visuals
+    # TODO: Below is an example - modify to extract data for your own visuals
     genre_counts = df.groupby('genre').count()['message']
     genre_names = list(genre_counts.index)
     
-    # Prepare word cloud, including first 100 words, weights and color etc.
+    # Plot Message cloud, this part need optimization and it is very slow at this moment
     allwords = " ".join( df['message'] )
     wordcloud = WordCloud().generate(allwords)
     alltexts = list( wordcloud.words_.keys() )[:30]
-#     num_words = len(wordcloud.words_.keys())
     num_words = 30
     colors = [plotly.colors.DEFAULT_PLOTLY_COLORS[random.randrange(1, 10)] for i in range(num_words)]
-<<<<<<< HEAD
     weights = [int(num*60) for num in ( list( wordcloud.words_.values() )[:30] ) ]
-=======
-    weights = [int(num*60) for num in ( list( wordcloud.words_.values() )[:100] ) ]
     
->>>>>>> 50e9a448263965e6090f75a55717822bf4b308cd
     # create visuals
+    # TODO: Below is an example - modify to create your own visuals
     graphs = [
         {
             'data': [
@@ -155,8 +139,6 @@ def go():
 
 def main():
     app.run(port=3001, debug=True)
-#     app.run(host='0.0.0.0', port=3001, debug=True)
-
 
 if __name__ == '__main__':
     main()
