@@ -58,10 +58,11 @@
   2. Run the following command to run the web app.
      To run the program locally, has to modify app/run.py accordingly.
      
+     `python app/run.py`
+     
      a. Run locally: uncomment line 31 and 143
+     
      b. Deploy on Herok: comment line 31 and 143, uncomment 141
-  
-    `python app/run.py`
 
 ### Results
   This web app is deployed at [Heroku](https://messageapp2021.herokuapp.com/)
