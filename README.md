@@ -56,6 +56,10 @@
         `python models/train_classifier.py data/DisasterResponse.db models/classifier.pkl`
         
   2. Run the following command to run the web app.
+     To run the program locally, has to modify app/run.py accordingly.
+     
+     a. Run locally: uncomment line 31 and 143
+     b. Deploy on Herok: comment line 31 and 143, uncomment 141
   
     `python app/run.py`
 
