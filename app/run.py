@@ -145,7 +145,10 @@ def go():
 
 
 def main():
+    # Use the following line to deploy on Heroku
     app.run(port=3001, debug=True)
+    # Use the following line to run Udacity local server
+    #  app.run(host='0.0.0.0', port=3001, debug=True)
 
 if __name__ == '__main__':
     main()
