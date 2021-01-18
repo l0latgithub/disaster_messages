@@ -8,6 +8,11 @@ from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 
 class Tokenizer(BaseEstimator, TransformerMixin):
+    
+    """
+    Customerized word Tokenizer to conduct sentence tokenize
+    """
+    
     def __init__(self):
         pass
 
@@ -16,6 +21,15 @@ class Tokenizer(BaseEstimator, TransformerMixin):
 
     
     def tokenize(self, X):
+        
+            """
+            Tokenize function
+            1. Replace all URL
+            2. Tokenize
+            3. Word lemmatize
+            4. Normalize tokens
+            5. Remove stopwords
+            """
             
             # Use regex to find all urls and replace them to be a constant string
             url_regex = 'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
@@ -43,6 +57,16 @@ class Tokenizer(BaseEstimator, TransformerMixin):
         
     def transform(self, X):
         def tokenize(text):
+            
+            """
+            Tokenize function
+            1. Replace all URL
+            2. Tokenize
+            3. Word lemmatize
+            4. Normalize tokens
+            5. Remove stopwords
+            """
+            
             import re
             # Use regex to find all urls and replace them to be a constant string
             url_regex = 'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
