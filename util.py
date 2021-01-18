@@ -7,6 +7,10 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 
+# Tokernizer has to put into a separate library, otherwise pickle model could not loaded appropriately
+# A former udacity student has a post on stackoverflow.com to discuss it, although I could not find the link
+# The Tokernizer structure was also from the former udacity student. Sorry just cannot find the link now.
+# Best post dicussses the issue: https://rebeccabilbro.github.io/module-main-has-no-attribute/
 class Tokenizer(BaseEstimator, TransformerMixin):
     def __init__(self):
         pass
