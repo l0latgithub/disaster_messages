@@ -1,6 +1,28 @@
 
+<<<<<<< HEAD
+=======
+## Table of Contents
+  1. [Descriptions](#descriptions)
+  2. [Instructions](#instructions)
+  3. [Web App](#wb-app)
+  4. [Deployment](#deloyment)
+  5. [Acknowledgement](#acknowledgement)
+
+### Descriptions
+This project aims to build a Natural Language Processing (NLP) web app to categorize messages. The project has three
+major components
+    1. Build sklearn ETYL pipeline to process data, clean, and save data to a SQLite database.
+    2. Develop a NLP processing model to classify the text messages.
+    3. Deploy the model as a web app to show the results.
+    
+### Instructions
+1. Libraries, the required libraries are in the requirements.txt
+    - pip install -r requirements.txt
+2. Run the following commands in the project's root directory to set up your database and model.
+>>>>>>> 50e9a448263965e6090f75a55717822bf4b308cd
 
 
+<<<<<<< HEAD
 
 
 
@@ -1398,3 +1420,17 @@ major components
   </body>
 </html>
 
+=======
+3. Run the following command in the app's directory to run the web app.
+    `python run.py
+    
+### Web App
+  The web app is deployed at [Heroku](https://messageapp2021.herokuapp.com/)
+
+### Deployment
+  The app depolyment could refer to [Heroku](https://devcenter.heroku.com/articles/git)
+
+### Acknowledgement
+1. [Udacity](https://www.udacity.com/) for providing the framework
+2. [Figure Eight](https://www.figure-eight.com/) for providing the dataset to train the model
+>>>>>>> 50e9a448263965e6090f75a55717822bf4b308cd
