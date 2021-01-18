@@ -76,7 +76,6 @@ class StartingVerbExtractor(BaseEstimator, TransformerMixin):
     def starting_verb(self, text):
         sentence_list = nltk.sent_tokenize(text)
         for sentence in sentence_list:
-#             pos_tags = nltk.pos_tag(tokenize(sentence))
             pos_tags = nltk.pos_tag(Tokenizer().tokenize(sentence))
             if pos_tags:
                 first_word, first_tag = pos_tags[0]
