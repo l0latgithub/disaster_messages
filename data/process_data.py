@@ -21,7 +21,7 @@ def load_data(messages_filepath, categories_filepath):
     categories = pd.read_csv(categories_filepath)
     
     # merge datasets
-    df = messages.merge(new_categories, on='id').reset_index(drop=True)
+    df = messages.merge(categories, on='id').reset_index(drop=True)
     
     return df
     
