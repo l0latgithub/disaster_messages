@@ -3,7 +3,9 @@
 ## Table of Contents
   1. [Descriptions](#descriptions)
   2. [Instructions](#instructions)
-  3. [Acknowledgement](#acknowledgement)
+  3. [Web App](#wb-app)
+  4. [Deployment](#deloyment)
+  5. [Acknowledgement](#acknowledgement)
 
 ### Descriptions
 This project aims to build a Natural Language Processing (NLP) web app to categorize messages. The project has three
@@ -25,6 +27,12 @@ major components
 3. Run the following command in the app's directory to run the web app.
     `python run.py
     
+### Web App
+  The web app is deployed at [Heroku](https://messageapp2021.herokuapp.com/)
+
+### Deployment
+  The app depolyment could refer to [Heroku](https://devcenter.heroku.com/articles/git)
+
 ### Acknowledgement
 1. [Udacity](https://www.udacity.com/) for providing the framework
 2. [Figure Eight](https://www.figure-eight.com/) for providing the dataset to train the model
