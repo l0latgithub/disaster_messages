@@ -68,7 +68,7 @@
   This web app is deployed at [Heroku](https://messageapp2021.herokuapp.com/)
 
 ### Deployment
-  Heroku web app deployment could be refered [here](https://devcenter.heroku.com/articles/git)
+  Heroku web app deployment could be refered [Heroku development document](https://devcenter.heroku.com/articles/git)
 
 ### Acknowledgement
   1. [Udacity](https://www.udacity.com/) for providing the framework.
