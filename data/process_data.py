@@ -54,10 +54,8 @@ def clean_data(df):
     # Drop duplicates and keep the first appearance.
     df.drop_duplicates(keep='first', inplace=True)
     
-    # Related has three values. This could be handled as a multiclass problem
-    # Udacity mentor insisted to make it a binary problem.
-    # related=2 was dropped here to make this happen.
-    # although it was not convincing with current information
+    # This is binary classification problem. However there are 3 values in the target variable.
+    # Label 2 only has around 120 and are dropped here.
     df = df.loc[df.related!=2]
     
     return df
